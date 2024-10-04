@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import axios from 'axios';
 import PhotoGrid from './components/PhotoGrid';
+import SearchBar from './components/SearchBar';
 
 function App() {
   // Estado para armazenar as fotos carregadas da API
@@ -37,6 +38,9 @@ function App() {
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center my-8">Buscador de Fotos</h1>
         
+        {/* Componente de busca de imagens */}
+        <SearchBar onSearch={searchPhotos} />
+
         {/* Navegação com links para diferentes categorias */}
         <nav className="mb-8">
           <ul className="flex justify-center space-x-4">
@@ -56,6 +60,8 @@ function App() {
           <Route path="/praia" element={<PhotoGrid term="praia" searchPhotos={searchPhotos} />} />
           <Route path="/passaro" element={<PhotoGrid term="passaro" searchPhotos={searchPhotos} />} />
           <Route path="/comida" element={<PhotoGrid term="comida" searchPhotos={searchPhotos} />} />
+          {/* Rota para resultados da barra de pesquisa */}
+          <Route path="/search/:searchTerm" element={<PhotoGrid term="" searchPhotos={searchPhotos} />} />
         </Routes>
 
         {/* Exibição condicional: Carregando ou grade de fotos */}
